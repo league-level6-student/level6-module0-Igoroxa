@@ -5,7 +5,7 @@ public class CheetahRunner {
         CheetahSearchApi cheetahSearchApi = new CheetahSearchApi();
         //cheetahSearchApi.testRequest();
 
-        String resultMessage = cheetahSearchApi.findBook("cats");
+        String resultMessage = cheetahSearchApi.findBook("dogs");
         System.out.println(resultMessage);
     }
 }
