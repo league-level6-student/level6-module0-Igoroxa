@@ -24,21 +24,25 @@ if (i != 700 || i != 900) {
             //4. Call the getClue() method with i
 jeopardyApi.getClue(i);
             //5. Save the question in a String variable
-String question = Clue.class.get
+String question = jeopardyApi.getClue(i).getQuestion();
             //6. Save the answer in a String variable
-
+String answer = jeopardyApi.getClue(i).getAnswer();
             //7. Save the title in a String variable
             //note that this is part of the Category object
-
+String title = jeopardyApi.getClue(i).getCategory().toString();
             //8. Use a JOptionPane to display the question.
             //You can set the title of the JOptionPane to the question title.
-
+JOptionPane.showMessageDialog(null, question);
+String input = JOptionPane.showInputDialog("Answer: ");
             //9. If they got the question correct, add the value of that question to their score
+if(input.equalsIgnoreCase(answer)) {
+	score = score + jeopardyApi.getClue(i).getValue();
+}
 }
 }
 
         //10. Tell the user their final score
-
+JOptionPane.showMessageDialog(null, "Your final score is " + score);
     }
 
 }

@@ -11,38 +11,60 @@ import static org.mockito.Mockito.when;
 
 class DeliveryDriverTest {
 
-    DeliveryDriver deliveryDriver;
+	DeliveryDriver deliveryDriver;
 
-    @BeforeEach
-    void setUp() {
+	String name;
+	Car car;
+	CellPhone phone;
+	boolean Licensed;
+	boolean onTheClock;
+	boolean currentlyOnDelivery;
 
-    }
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
 
-    @Test
-    void itShouldWasteTime() {
-        //given
+		deliveryDriver = new DeliveryDriver(name, car, phone, Licensed, onTheClock, currentlyOnDelivery);
+	}
 
-        //when
+	@Test
+	void itShouldWasteTime() {
+		// given
+		boolean expected = true;
+		// when
 
-        //then
-    }
+		when(deliveryDriver.cellPhone.browseCatMemes()).thenReturn(true);
 
-    @Test
-    void itShouldRefuel() {
-        //given
+		boolean actual = deliveryDriver.wasteTime();
+		// then
 
-        //when
+		assertEquals(expected, actual);
+	}
 
-        //then
-    }
+	@Test
+	void itShouldRefuel() {
+		// given
+		boolean expectedRefuel = true;
+		
+		when(deliveryDriver.car.fillTank(10));
+		// when
+		boolean actual = deliveryDriver.refuel(0);
+		// then
+		assertEquals(expectedRefuel, actual);
+	}
 
-    @Test
-    void itShouldContactCustomer() {
-        //given
+	@Test
+	void itShouldContactCustomer() {
+		// given
+		boolean expected = true;
 
-        //when
+		when(deliveryDriver.cellPhone.call(name)).thenReturn(true);
 
-        //then
-    }
+		// when
+		boolean actual = deliveryDriver.contactCustomer(name);
+		// then
+
+		assertEquals(expected, actual);
+	}
 
 }
