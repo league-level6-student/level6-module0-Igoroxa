@@ -13,22 +13,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+import java.util.Collections;
+import java.util.List;
+
 class MyDonutShopTest {
 
     MyDonutShop myDonutShop;
+    
+    @Mock
+    MyDonutShop shopper;
 
     @BeforeEach
     void setUp() {
-
+    	MockitoAnnotations.openMocks(this);
+    	
+    	List<MyDonutShop> avaliableShops = Collections.singletonList(myDonutShop);
+   
+    	
     }
 
     @Test
     void itShouldTakeDeliveryOrder() throws Exception {
         //given
-
+    	boolean takenDeliveryOrder = true;
         //when
-
+    	myDonutShop.takeOrder(null); 
         //then
+    	
     }
 
     @Test

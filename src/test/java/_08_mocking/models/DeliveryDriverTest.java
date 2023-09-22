@@ -14,17 +14,23 @@ class DeliveryDriverTest {
 	DeliveryDriver deliveryDriver;
 
 	String name;
+	@Mock
+
 	Car car;
+	@Mock
 	CellPhone phone;
+
 	boolean Licensed;
+
 	boolean onTheClock;
+
 	boolean currentlyOnDelivery;
 
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 
-		deliveryDriver = new DeliveryDriver(name, car, phone, Licensed, onTheClock, currentlyOnDelivery);
+		deliveryDriver = new DeliveryDriver(name, car, phone);
 	}
 
 	@Test
@@ -33,7 +39,7 @@ class DeliveryDriverTest {
 		boolean expected = true;
 		// when
 
-		when(deliveryDriver.cellPhone.browseCatMemes()).thenReturn(true);
+		when(phone.browseCatMemes()).thenReturn(true);
 
 		boolean actual = deliveryDriver.wasteTime();
 		// then
@@ -45,10 +51,10 @@ class DeliveryDriverTest {
 	void itShouldRefuel() {
 		// given
 		boolean expectedRefuel = true;
-		
-		when(deliveryDriver.car.fillTank(10));
+
+		when(car.fillTank(12)).thenReturn(true);
 		// when
-		boolean actual = deliveryDriver.refuel(0);
+		boolean actual = deliveryDriver.refuel(12);
 		// then
 		assertEquals(expectedRefuel, actual);
 	}
@@ -58,7 +64,7 @@ class DeliveryDriverTest {
 		// given
 		boolean expected = true;
 
-		when(deliveryDriver.cellPhone.call(name)).thenReturn(true);
+		when(phone.call(name)).thenReturn(true);
 
 		// when
 		boolean actual = deliveryDriver.contactCustomer(name);
