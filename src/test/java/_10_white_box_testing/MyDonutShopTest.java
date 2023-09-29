@@ -18,27 +18,47 @@ import java.util.List;
 
 class MyDonutShopTest {
 
+
     MyDonutShop myDonutShop;
     
     @Mock
     MyDonutShop shopper;
 
+    @Mock
+    PaymentService pay = new PaymentService();
+    
+    @Mock
+    DeliveryService delivery = new DeliveryService(null);
+    
+    @Mock
+    BakeryService bakery = new BakeryService();
+    
     @BeforeEach
     void setUp() {
     	MockitoAnnotations.openMocks(this);
     	
-    	List<MyDonutShop> avaliableShops = Collections.singletonList(myDonutShop);
-   
+    	
+    	List<MyDonutShop> avaliableShops = Collections.singletonList(shopper);
+    	
+    	myDonutShop = new MyDonutShop(pay, delivery, bakery); 
+    	
+    	
     	
     }
 
     @Test
     void itShouldTakeDeliveryOrder() throws Exception {
         //given
-    	boolean takenDeliveryOrder = true;
+    
+    	Order order = new Order("name", "phone", 1, 1, "", true);
         //when
-    	myDonutShop.takeOrder(null); 
+    	when(bakery.getDonutsRemaining()).thenReturn(1);
+    	when(pay.charge(order)).thenReturn(true);
+    	myDonutShop.openForTheDay();
+    	myDonutShop.takeOrder(order);
         //then
+    	verify(delivery, times(1)).scheduleDelivery(order);
+    	
     	
     }
 
