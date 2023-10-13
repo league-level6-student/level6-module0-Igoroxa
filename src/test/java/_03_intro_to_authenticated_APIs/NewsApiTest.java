@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -26,18 +27,24 @@ import static org.mockito.Mockito.*;
 class NewsApiTest {
 
     NewsApi newsApi;
+    
+    @Mock
+    NewsApi news;
 
     @BeforeEach
     void setUp() {
-
+    	MockitoAnnotations.openMocks(this);
+    	
     }
 
     @Test
     void itShouldGetNewsStoryByTopic() {
         //given
-
+    	boolean check = false;
+    	ApiExampleWrapper wrap = news.getNewsStoryByTopic("world");
+    	assertTrue(wrap.getTotalResults() != 0);
         //when
-
+    	
         //then
     }
 
