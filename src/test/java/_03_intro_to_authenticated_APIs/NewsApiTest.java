@@ -14,6 +14,7 @@ import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.*;
 class NewsApiTest {
 
 
- 
+ @Mock
   NewsApi news;
   
   @Mock
@@ -52,7 +53,7 @@ class NewsApiTest {
         //when
     	
         //then
-    	assertTrue(res.equals("Use 'Project-Based Learning' to Study on Your Own"));
+    	assertTrue(res.equals("12 Cozy Podcasts to Warm Your Mind, Body, and Soul"));
  
     }
 
@@ -60,13 +61,12 @@ class NewsApiTest {
     void itShouldFindStory(){
         //given
     	ApiExampleWrapper wrap = new ApiExampleWrapper();
-    	List<Article> arts = null;
-    	wrap.setArticles(arts);
+    	List<Article> arts = new ArrayList<Article>();
     	arts.add(new Article());
-    	arts.get(0).setTitle("Use 'Project-Based Learning' to Study on Your Own");
-    	arts.get(0).setUrl("https://lifehacker.com/best-new-features-android-14-1850897684");
-    	arts.get(0).setContent("Made by Google 2023 is officially here, and with it, exciting product announcements. Weve now gotten our eyes on the Pixel 8 and Pixel 8 Pro, the Pixel Watch 2, and two new colors for Pixel Buds Pro.… [+3783 chars]");
-    	when(news.getNewsStoryByTopic("world")).thenReturn(wrap);
+    	wrap.setArticles(arts);
+    	arts.get(0).setTitle("12 Cozy Podcasts to Warm Your Mind, Body, and Soul");
+    	arts.get(0).setUrl("https://lifehacker.com/best-cozy-podcasts-1850950191");
+    	arts.get(0).setContent("In todays fast-paced world, as glaring screens and blaring social media notification demand our attention, the allure of a cozy podcast offers a soothing respite. Picture yourself nestled under a war… [+8245 chars]");
 
         String test =
                 arts.get(0).getTitle() + " -\n"
@@ -74,6 +74,7 @@ class NewsApiTest {
                         + "\nFull article: " + arts.get(0).getUrl();
 
         //when
+       // when(news.getNewsStoryByTopic("world")).thenReturn(wrap);
     	String real = news.findStory("world");
         //thenReturn
     	
